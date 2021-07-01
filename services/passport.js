@@ -31,7 +31,10 @@ passport.use(
         {
             clientID: keys.googleClientId,
             clientSecret: keys.googleClientSecret,
-            callbackURL: '/auth/google/callback'
+            callbackURL: '/auth/google/callback',
+            // This enables the callback URL to be valid and
+            // not cause errors, whether in dev or prod environment
+            proxy: true
         }, 
         (accessToken, refreshToken, profile, done) => {
             // These queries return promises
@@ -39,7 +42,7 @@ passport.use(
                 if (existingUser) {
                     // We already have record with given 
                     // profile Id
-                   // null = everything is fine, existingUser = here is the info we fetched
+                    // null = everything is fine, existingUser = here is the info we fetched
                     done(null, existingUser);
                 } else {
                     // We dont' have a user record with this ID,
@@ -61,7 +64,8 @@ passport.use(
         {
             clientID: keys.spotifyClientId,
             clientSecret: keys.spotifyClientSecret,
-            callbackURL: '/auth/spotify/callback'
+            callbackURL: '/auth/spotify/callback',
+            proxy: true
         }, 
         (accessToken, refreshToken, profile, done) => {
             // These queries return promises
@@ -91,7 +95,8 @@ passport.use(
         {
             clientID: keys.githubClientId,
             clientSecret: keys.githubClientSecret,
-            callbackURL: '/auth/github/callback'
+            callbackURL: '/auth/github/callback',
+            proxy: true
         }, 
         (accessToken, refreshToken, profile, done) => {
             // These queries return promises
