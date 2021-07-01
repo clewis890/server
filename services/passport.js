@@ -59,64 +59,64 @@ passport.use(
     )
 );
 
-passport.use(
-    new SpotifyStrategy(
-        {
-            clientID: keys.spotifyClientId,
-            clientSecret: keys.spotifyClientSecret,
-            callbackURL: '/auth/spotify/callback',
-            proxy: true
-        }, 
-        (accessToken, refreshToken, profile, done) => {
-            // These queries return promises
-            User.findOne({ spotifyId: profile.id }).then((existingUser) => {
-                if (existingUser) {
-                    // We already have record with given 
-                    // profile Id
-                   // null = everything is fine, existingUser = here is the info we fetched
-                    done(null, existingUser);
-                } else {
-                    // We dont' have a user record with this ID,
-                    // make a new record/ "Model Instance"
-                    new User({ spotifyId: profile.id })
-                        .save()
-                        // providing the new user saved to database, tell
-                        // database that action is done, and then pass in user that was just saved
-                        // as second argument
-                        .then(user => done(null, user));
-                }
-            });
-        }
-    )
-);
+// passport.use(
+//     new SpotifyStrategy(
+//         {
+//             clientID: keys.spotifyClientId,
+//             clientSecret: keys.spotifyClientSecret,
+//             callbackURL: '/auth/spotify/callback',
+//             proxy: true
+//         }, 
+//         (accessToken, refreshToken, profile, done) => {
+//             // These queries return promises
+//             User.findOne({ spotifyId: profile.id }).then((existingUser) => {
+//                 if (existingUser) {
+//                     // We already have record with given 
+//                     // profile Id
+//                    // null = everything is fine, existingUser = here is the info we fetched
+//                     done(null, existingUser);
+//                 } else {
+//                     // We dont' have a user record with this ID,
+//                     // make a new record/ "Model Instance"
+//                     new User({ spotifyId: profile.id })
+//                         .save()
+//                         // providing the new user saved to database, tell
+//                         // database that action is done, and then pass in user that was just saved
+//                         // as second argument
+//                         .then(user => done(null, user));
+//                 }
+//             });
+//         }
+//     )
+// );
 
-passport.use(
-    new GithubStrategy(
-        {
-            clientID: keys.githubClientId,
-            clientSecret: keys.githubClientSecret,
-            callbackURL: '/auth/github/callback',
-            proxy: true
-        }, 
-        (accessToken, refreshToken, profile, done) => {
-            // These queries return promises
-            User.findOne({ githubId: profile.id }).then((existingUser) => {
-                if (existingUser) {
-                    // We already have record with given 
-                    // profile Id
-                   // null = everything is fine, existingUser = here is the info we fetched
-                    done(null, existingUser);
-                } else {
-                    // We dont' have a user record with this ID,
-                    // make a new record/ "Model Instance"
-                    new User({ githubId: profile.id })
-                        .save()
-                        // providing the new user saved to database, tell
-                        // database that action is done, and then pass in user that was just saved
-                        // as second argument
-                        .then(user => done(null, user));
-                }
-            });
-        }
-    )
-);
+// passport.use(
+//     new GithubStrategy(
+//         {
+//             clientID: keys.githubClientId,
+//             clientSecret: keys.githubClientSecret,
+//             callbackURL: '/auth/github/callback',
+//             proxy: true
+//         }, 
+//         (accessToken, refreshToken, profile, done) => {
+//             // These queries return promises
+//             User.findOne({ githubId: profile.id }).then((existingUser) => {
+//                 if (existingUser) {
+//                     // We already have record with given 
+//                     // profile Id
+//                    // null = everything is fine, existingUser = here is the info we fetched
+//                     done(null, existingUser);
+//                 } else {
+//                     // We dont' have a user record with this ID,
+//                     // make a new record/ "Model Instance"
+//                     new User({ githubId: profile.id })
+//                         .save()
+//                         // providing the new user saved to database, tell
+//                         // database that action is done, and then pass in user that was just saved
+//                         // as second argument
+//                         .then(user => done(null, user));
+//                 }
+//             });
+//         }
+//     )
+// );

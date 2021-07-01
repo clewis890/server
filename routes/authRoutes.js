@@ -7,21 +7,21 @@ module.exports = app => {
             scope: ['profile', 'email']
         })
     );
-    app.get(
-        '/auth/spotify', 
-        passport.authenticate('spotify', {
-            scope: ['user-read-email', 'user-read-private'],
-            showDialog: true
-        })
-    );
-    app.get(
-        '/auth/github', 
-        passport.authenticate('github')
-    );
+    // app.get(
+    //     '/auth/spotify', 
+    //     passport.authenticate('spotify', {
+    //         scope: ['user-read-email', 'user-read-private'],
+    //         showDialog: true
+    //     })
+    // );
+    // app.get(
+    //     '/auth/github', 
+    //     passport.authenticate('github')
+    // );
 
     app.get('/auth/google/callback', passport.authenticate('google'));
-    app.get('/auth/spotify/callback', passport.authenticate('spotify'));
-    app.get('/auth/github/callback', passport.authenticate('github'));
+    // app.get('/auth/spotify/callback', passport.authenticate('spotify'));
+    // app.get('/auth/github/callback', passport.authenticate('github'));
     
     app.get('/api/logout', (req, res) => {
         req.logout();
