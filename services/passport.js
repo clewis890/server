@@ -36,25 +36,16 @@ passport.use(
             // not cause errors, whether in dev or prod environment
             proxy: true
         }, 
-        (accessToken, refreshToken, profile, done) => {
+        async (accessToken, refreshToken, profile, done) => {
             // These queries return promises
-            User.findOne({ googleId: profile.id }).then((existingUser) => {
+            const existingUser = await User.findOne({ googleId: profile.id })
                 if (existingUser) {
-                    // We already have record with given 
-                    // profile Id
-                    // null = everything is fine, existingUser = here is the info we fetched
-                    done(null, existingUser);
-                } else {
-                    // We dont' have a user record with this ID,
-                    // make a new record/ "Model Instance"
-                    new User({ googleId: profile.id })
-                        .save()
-                        // providing the new user saved to database, tell
-                        // database that action is done, and then pass in user that was just saved
-                        // as second argument
-                        .then(user => done(null, user));
+                    // We already have record with given profile Id. null = everything is fine, existingUser = here is the info we fetched
+                    return done(null, existingUser);
                 }
-            });
+                    // We dont' have a user record with this ID, make a new record/ "Model Instance"
+                const user = await new User({ googleId: profile.id }).save();
+                done(null, user);
         }
     )
 );
@@ -67,25 +58,16 @@ passport.use(
             callbackURL: '/auth/spotify/callback',
             proxy: true
         }, 
-        (accessToken, refreshToken, profile, done) => {
+        async (accessToken, refreshToken, profile, done) => {
             // These queries return promises
-            User.findOne({ spotifyId: profile.id }).then((existingUser) => {
+            const existingUser = await User.findOne({ spotifyId: profile.id })
                 if (existingUser) {
-                    // We already have record with given 
-                    // profile Id
-                   // null = everything is fine, existingUser = here is the info we fetched
-                    done(null, existingUser);
-                } else {
-                    // We dont' have a user record with this ID,
-                    // make a new record/ "Model Instance"
-                    new User({ spotifyId: profile.id })
-                        .save()
-                        // providing the new user saved to database, tell
-                        // database that action is done, and then pass in user that was just saved
-                        // as second argument
-                        .then(user => done(null, user));
+                    // We already have record with given profile Id null = everything is fine, existingUser = here is the info we fetched
+                    return done(null, existingUser);
                 }
-            });
+                // We dont' have a user record with this ID, make a new record/ "Model Instance"
+                const user = await new User({ spotifyId: profile.id }).save();
+                done(null, user);  
         }
     )
 );
@@ -98,25 +80,16 @@ passport.use(
             callbackURL: '/auth/github/callback',
             proxy: true
         }, 
-        (accessToken, refreshToken, profile, done) => {
+        async (accessToken, refreshToken, profile, done) => {
             // These queries return promises
-            User.findOne({ githubId: profile.id }).then((existingUser) => {
+            const existingUser = await User.findOne({ githubId: profile.id })
                 if (existingUser) {
-                    // We already have record with given 
-                    // profile Id
-                   // null = everything is fine, existingUser = here is the info we fetched
-                    done(null, existingUser);
-                } else {
-                    // We dont' have a user record with this ID,
-                    // make a new record/ "Model Instance"
-                    new User({ githubId: profile.id })
-                        .save()
-                        // providing the new user saved to database, tell
-                        // database that action is done, and then pass in user that was just saved
-                        // as second argument
-                        .then(user => done(null, user));
+                    // We already have record with given profile Id null = everything is fine, existingUser = here is the info we fetched
+                    return done(null, existingUser);
                 }
-            });
+                // We dont' have a user record with this ID, make a new record/ "Model Instance"
+                const user = await new User({ githubId: profile.id }).save();
+                done(null, user);
         }
     )
 );
